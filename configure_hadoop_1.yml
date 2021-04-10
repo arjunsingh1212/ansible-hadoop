@@ -1,0 +1,42 @@
+- hosts: namenode
+  vars_files:
+          - variables
+
+  tasks:
+          - name: Create Directory
+            file:
+                    path: /nn
+                    state: directory
+
+          - name: Copy hdfs-site.xml
+            copy:
+                    src: /ansible-hadoop/hdfs-master/hdfs-site.xml
+                    dest: /etc/hadoop/
+
+          - name: Copy core-site.xml as template
+            template:
+                    src: /ansible-hadoop/core-site.xml
+                    dest: /etc/hadoop/
+
+- hosts: datanode
+  vars_files:
+          - variables
+
+  tasks:
+          - name: Create Directory
+            file:
+                    path: /dn
+                    state: directory
+
+          - name: Copy hdfs-site.xml
+            copy:
+                    src: /ansible-hadoop/hdfs-slave/hdfs-site.xml
+                    dest: /etc/hadoop/
+                    
+          - name: Copy core-site.xml as template
+            template:
+                    src: /ansible-hadoop/core-site.xml
+                    dest: /etc/hadoop/
+
+
+

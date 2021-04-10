@@ -1,0 +1,26 @@
+- hosts: all
+  tasks:
+          - name: Disabling firewall
+            service:
+                    name: "firewalld"
+                    state: stopped
+
+          - name: Copy JDK
+            copy:
+                    src: /softwares/jdk-8u171-linux-x64.rpm
+                    dest: /
+
+          - name: Copy Hadoop
+            copy:
+                    src: /softwares/hadoop-1.2.1-1.x86_64.rpm
+                    dest: /
+
+          - name: Install JDK
+            yum:
+                    name: /jdk-8u171-linux-x64.rpm
+                    state: present
+                    disable_gpg_check: yes
+
+          - name: Install Hadoop
+            command: rpm -i /hadoop-1.2.1-1.x86_64.rpm --force
+            

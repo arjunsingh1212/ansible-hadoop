@@ -1,0 +1,13 @@
+- hosts: namenode
+  tasks:
+          - name: Format Master (Name Node)
+            shell: echo Y | hadoop namenode -format
+
+          - name: Start service of Name Node
+            command: hadoop-daemon.sh start namenode
+
+- hosts: datanode
+  tasks:
+          - name: Start service of Data Node
+            command: hadoop-daemon.sh start datanode
+
